@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --vanta: #0a0a0a;
+  --onyx: #141414;
+  --graphite: #222222;
+  --platinum: #e8e8e8;
+  --steel: #8a8a8a;
+  --champagne: #c9a84c;
+  --gold-hi: #e3c977;
+  --gold-lo: #9a7b2e;
+
+  --ease-vanta: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-sweep: cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+
+    scroll-behavior: auto;
+  }
+
+  body {
+    background-color: var(--vanta);
+    color: var(--platinum);
+    font-family: var(--font-cormorant), Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--champagne);
+    color: var(--vanta);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--champagne);
+    outline-offset: 4px;
+  }
+
+  body[data-magnetic-cursor='on'],
+  body[data-magnetic-cursor='on'] * {
+    cursor: none;
+  }
+
+  body[data-loupe='on'] .magnetic-ring {
+    visibility: hidden;
+  }
+
+  .font-mono {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+
+  .label-mono {
+    font-family: var(--font-jetbrains), ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--steel);
+  }
+
+  .text-gold {
+    background: linear-gradient(160deg, var(--gold-hi), var(--champagne) 50%, var(--gold-lo));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hairline {
+    background-color: var(--graphite);
+  }
+
+  .gold-underline {
+    position: relative;
+  }
+  .gold-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.15em;
+    height: 1px;
+    width: 100%;
+    background-color: var(--champagne);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.8s var(--ease-vanta);
+  }
+  .gold-underline:hover::after,
+  .gold-underline:focus-visible::after {
+    transform: scaleX(1);
+  }
+}
+
+@layer utilities {
+  .hide-scrollbar {
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  body[data-magnetic-cursor='on'],
+  body[data-magnetic-cursor='on'] * {
+    cursor: auto !important;
+  }
+}
